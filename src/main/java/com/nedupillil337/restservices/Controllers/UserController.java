@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,12 +23,13 @@ import com.nedupillil337.restservices.Services.UserService;
 
 //Controller 
 @RestController
+@RequestMapping(value="/users")
 public class UserController {
 	@Autowired
 	private UserService userService;
 	
 	//getAll users Method
-	@GetMapping("/users")
+	@GetMapping
 	public List<User>getAllUsers(){
 		return userService.getAllUsers();
 	}
@@ -35,7 +37,7 @@ public class UserController {
 	
     //@RequestBody Annotation
 	//@PostMappingAnnotation
-	@PostMapping("/users")
+	@PostMapping
 	public User createUser(@RequestBody User user,UriComponentsBuilder builder)
 	{
 		try {
@@ -46,7 +48,7 @@ public class UserController {
 		}
 	
 	//getUser By Id
-	@GetMapping("/users/{id}")
+	@GetMapping("/{id}")
 	public Optional<User> getUserById(@PathVariable("id") Long id){
 		
 		try {
@@ -57,7 +59,7 @@ public class UserController {
 		}
 	
 	//UpdateUserBy Id
-	@PutMapping("/users/{id}")
+	@PutMapping("/{id}")
 	public User updateUserById(@PathVariable("id") Long id,@RequestBody User user) {
 		try {
 		return userService.updateUserById(user,id);
@@ -67,12 +69,12 @@ public class UserController {
 	}
 	
 	//DeleteUserById
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable("id")Long id) {
 		userService.deleteUserById(id);
 	}
 	//getUserByUserName
-	@GetMapping("/users/byusername/{username}")
+	@GetMapping("/byusername/{username}")
 	public User getUserByUsername(@PathVariable("username") String username) {
 		return userService.getUserByUsername(username);
 	}

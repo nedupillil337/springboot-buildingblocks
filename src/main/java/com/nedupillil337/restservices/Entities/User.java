@@ -1,9 +1,12 @@
 package com.nedupillil337.restservices.Entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //Entity
@@ -26,6 +29,8 @@ public class User {
 	@Column(name="SSN",length=50,nullable=false)
  private String ssn;
 	
+	@OneToMany(mappedBy = "user")
+	private List<Order> orders;
 	//No Argument Constructor
 	public User() {
 		
@@ -85,13 +90,21 @@ public class User {
 		this.ssn = ssn;
 	}
 	
-	 //To String
+		
+	 public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	//To String
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
 	}
 	
+		
     
 	
 	
